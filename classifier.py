@@ -43,7 +43,6 @@ else:
     utils.pickle_it(validation_labels, 'pickles/validation_labels')
     print("data pickled")
 
-
 ######################################################
 # K-Means
 # model = models.KM(254)
@@ -66,10 +65,9 @@ model.train(train_data, train_labels, validation_data, validation_labels, epochs
 
 ######################################################
 # Test set accuracy for the model
-test_size = len(test_data)
-test_predictions = model.predict(test_data[0 : test_size])
-correct = np.sum(test_predictions == test_labels[0 : test_size])
-print("Accuracy:", correct / test_size)
+test_predictions = model.predict(test_data)
+correct = np.sum(test_predictions == test_labels)
+print("Accuracy:", correct / len(test_data))
 
 ######################################################
 # Labeling the south part of the image
