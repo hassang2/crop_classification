@@ -3,6 +3,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.cluster import KMeans
 import tensorflow as tf
 import utils
+
 class KNN():
     def __init__(self, num_neighbors = 3):
         self.model = KNeighborsClassifier(n_neighbors = num_neighbors)
@@ -32,21 +33,16 @@ class KM():
         return self.model.predict(X)
 
 class NN():
-    def __init__(self, neurons = [5, 64, 64, 3]):
+    def __init__(self, neurons = [5, 4, 3]):
         self.params = {}
         self.sess = tf.Session()
         self.neurons = neurons
         self.out = self.model(tf.placeholder(tf.float32, [None, neurons[0]], name = "X"))
         
     def model(self, X):
-        
         L1 = tf.layers.dense(X, self.neurons[0])
-        # before = L1
-        # for n in self.neurons:
-        #     before = tf.layers.dense(before, n)
         L2 = tf.layers.dense(L1, self.neurons[1])
         L3 = tf.layers.dense(L2, self.neurons[2])
-        # L4 = tf.layers.dense(L3, self.neurons[3])
         softmax = tf.nn.softmax(L3)
         return softmax
 
